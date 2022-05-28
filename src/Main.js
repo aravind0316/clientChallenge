@@ -1,23 +1,25 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { FilterContext } from './App';
+import {AiOutlineCiCircle} from 'react-icons/ai'
 
 const Main = () => {
-    const {search, selection, renue} = React.useContext(FilterContext);
-    const [persons,setPersons] = useState([]);
-    const printData = async (rest) => {
-      // for(var i =0; i < )
-      await rest.data.map((rt) => console.log(rt.name))
-      // console.log(persons)
-      // console.log(persons + 'hi')
-    }
-    const addItem = (re) => {
-      setPersons([...persons,re]);
-    }
+    const {search, selection, renue,persons,setPersons,plan,setPlan} = React.useContext(FilterContext);
+
+    
+    
     const getData = async () => {
-        
-       await axios.get('http://localhost:3001/').then((rt) => setPersons(rt.data)).then(console.log(persons))
-       console.log()
+      await axios.get('http://localhost:3001/', {
+        name: "Noami",
+        number: "(120) 4732224",
+        email: "njest1@uol.com.br",
+        plan: plan,
+        start: "2019-07-10T04:00:00.000Z",
+        renue: "Annually",
+        status: "Active",
+      }).then((rt) => setPersons(rt.data)).then(console.log(persons));        
+      //  await axios.get('http://localhost:3001/')
+      //  console.log()
        
     }
   useEffect(() => {
@@ -25,25 +27,22 @@ const Main = () => {
   },[])
   
   return (
-    <div>
-      <div class="flex flex-col">
-  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-      <div class="overflow-hidden">
-        <table class="min-w-full">
-          <thead class="border-b">
+    <div className='md:px-9'>
+      <div className="flex flex-col">
+  <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+      <div className="overflow-hidden">
+        <table className="min-w-full">
+          <thead className=" bg-gray-200 rounded-lg">
             <tr>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+              <th scope="col" Name="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 #
               </th>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 First
               </th>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Email
-              </th>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Number
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Detail
               </th>
               <th>
                 Plan
@@ -79,15 +78,26 @@ const Main = () => {
                 return(
                   <tr class="border-b">
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {tap.name}
+                    <td class="flex flex-row text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <div className='rounded-full font-bold text-gray-400 bg-gray-300 h-10 w-10 flex justify-center'><p className='pt-2'>BM</p></div>
+                      <div className='px-4 flex flex-col'>
+                        <div className='font-bold'><h1>{tap.name}</h1></div>
+                        <div><p>Login 5hago</p></div>
+                        
+                        </div>
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {tap.email}
+                      <div className='flex flex-col'>
+                        <div className='font-semibold'>
+                          {tap.number}
+                        </div>
+                        <div className='text-gray-400 font-thin'>
+                        {tap.email}
+                        </div>
+                      </div>
+                     
                     </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {tap.number}
-                    </td>
+                    
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       {tap.plan}
                     </td>
